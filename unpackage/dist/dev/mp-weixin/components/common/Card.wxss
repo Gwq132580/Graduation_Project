@@ -1,0 +1,14 @@
+
+.card{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	padding: 20rpx 0;
+}
+.card-name{
+	padding: 0 20rpx;
+}
+

@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/list/list",
+    "pages/my/my",
+    "pages/shopcart/shopcart",
+    "pages/search/search",
+    "pages/search-list/search-list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "百年奥莱",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#BABAC6",
+    "selectedColor": "#BABAC6",
+    "spacing": "7px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/indexSelected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "iconPath": "static/tabbar/list.png",
+        "selectedIconPath": "static/tabbar/listSelected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/shopcart/shopcart",
+        "iconPath": "static/tabbar/shop.png",
+        "selectedIconPath": "static/tabbar/shopSelected.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/tabbar/my.png",
+        "selectedIconPath": "static/tabbar/mySelected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap17.json"
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "commodity": "/components/common/Commodity"
+  },
+  "component": true
+}

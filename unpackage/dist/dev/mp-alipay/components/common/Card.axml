@@ -1,0 +1,1 @@
+<view class="card"><view>-</view><view class="card-name">{{''+cardTitle+''}}</view><view>-</view></view>

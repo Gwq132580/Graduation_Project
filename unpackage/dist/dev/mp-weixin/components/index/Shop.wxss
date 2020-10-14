@@ -1,0 +1,13 @@
+
+.shop-big{
+	width: 100%;
+	height: 350rpx;
+}
+.scroll-content{
+	width: 100%;
+	white-space: nowrap;
+}
+.scroll-item{
+	display: inline-block;
+}
+

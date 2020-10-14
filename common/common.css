@@ -1,0 +1,20 @@
+/* 默认字体颜色 */
+.f-color{
+	color: #BABAC6;
+}
+/* 选中字体颜色 */
+.f-active-color{
+	color: #2B2C3A;
+}
+/* 默认背景颜色 */
+.bg-color{
+	background-color: #2B2C3A;
+}
+/* 隐藏滚动条 */
+::-webkit-scrollbar{
+		display: none;
+		width: 0!important;
+		height: 0!important;
+		-webkit-appearance:none;
+		background: transparent;
+	}

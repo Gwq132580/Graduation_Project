@@ -1,0 +1,38 @@
+
+.shop-title{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.shop-item{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 80rpx;
+}
+.iconfont{
+	position: absolute;
+	width: 16rpx;
+	height: 8rpx;
+	left: 0;
+}
+.shop-icon{
+	position: relative;
+	margin-left: 10rpx;
+}
+.up{
+	top: -34rpx;
+}
+.down{
+	top:-24rpx
+}
+

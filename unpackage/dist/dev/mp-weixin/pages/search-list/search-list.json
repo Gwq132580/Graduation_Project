@@ -1,0 +1,6 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "usingComponents": {
+    "shop-list": "/components/common/ShopList"
+  }
+}
