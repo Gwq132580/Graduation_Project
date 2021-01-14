@@ -1,43 +1,15 @@
 <template>
 	<view class='login'>
-		<swiper vertical='true' style="height: 100vh;">
-			<swiper-item>
-				<scroll-view>
-					<view class='login-tel'>
-						<view class='tel-main'>
-							<view class='close' @tap="close">
-								<image class='close-img' src="../../static/img/close.png" mode=""></image>
-							</view>
-							<view class='logo'>
-								<image class='logo-img' src="../../static/img/logo.jpg" mode=""></image>
-							</view>
-							<view class='tel' @tap="goLoginTel">手机号注册</view>
-							<LoginOther></LoginOther>
-							<view class='login-go'>
-								<view >已有账号，去登录</view>
-								<image src="../../static/img/down.png" mode=""></image>
-							</view>
-						</view>
-					</view>
-				</scroll-view>
-			</swiper-item>
-			<swiper-item>
-				<scroll-view scroll-y="true" >
 					<view class='login-tel'>
 						<view class='tel-main'>
 							<view class='close close-center' @tap="close">
 								<view>
-									<image class='close-img' src="../../static/img/close.png" mode=""></image>
+									<image  class='close-img' src="../../static/img/close.png" mode=""></image>
 								</view>
-								<view class='login-go'>
-									<image class='close-img' src="../../static/img/up.png" mode=""></image>
-									<view >没有账号，去注册</view>
-								</view>
-								<view></view>
 							</view>
 							<view class='login-from'>
 								<view class="avatar">
-									<image :src="avatar?avatar:'../../static/img/logo.jpg'" mode=""></image>
+									<image class="avatar-img" style="margin-bottom: 30rpx;" :src="avatar?avatar:'../../static/img/girl.jpg'" mode=""></image>
 								</view>
 								<view class='login-user'>
 									<input type="text" value="" v-model="userName" placeholder="请输入手机号/用户名" @blur="getAvatar"/>
@@ -46,18 +18,11 @@
 									<input type="password" value="" v-model="userPwd" placeholder="密码为6-16位字符"/>
 								</view>
 							</view>
-							<!-- <view class='login-quick'>
-								<view>忘记密码?</view>
-								<view>免密登录</view>
-							</view> -->
-							<view class='tel' style="margin-bottom: 300rpx;" @tap="loginTo">登录</view>
-							<!-- <view class='reminder'>温馨提示：您可以选择免密登录，更加方便</view> -->
+							<view class='tel' @tap="loginTo">登录</view>
+							<view class='tel-reg'  @tap="goLoginTel">没有账号?去手机号注册</view>
 							<LoginOther></LoginOther>
 						</view>
 					</view>
-				</scroll-view>
-			</swiper-item>
-		</swiper>
 	</view>
 </template>
 
@@ -71,6 +36,8 @@
 				userName:'',
 				userPwd:'',
 				avatar:'',
+				count:0,
+				time:'',
 				rules:{
 					userName:{
 						rule:/\S/,
@@ -125,6 +92,8 @@
 					}
 				}).then((res)=>{
 					if(res.success){
+						const {data:{id}}=res;
+						uni.setStorageSync('id',id);
 						this.login(res.data);
 							uni.showToast({
 								title:res.msg,
@@ -169,6 +138,9 @@
 </script>
 
 <style scoped>
+.login{
+	background-color: #2D4B81;
+}
 .avatar{
 	display: flex;
 	justify-content: center;
@@ -186,7 +158,7 @@
 	padding:0 20rpx;
 }
 .close{
-	padding:120rpx 0;
+	padding:60rpx 0;
 }
 .close-img{
 	width:60rpx;
@@ -201,16 +173,22 @@
 	border-radius: 30rpx;
 }
 .tel{
-	margin-top: 50rpx;
-	width:100%;
 	font-size: 34rpx;
-	height: 80rpx;
-	line-height: 80rpx;
+	height: 100rpx;
+	line-height: 100rpx;
 	text-align: center;
 	color:#FFFFFF;
-	background: #6BDADB;
+	background:linear-gradient(to right, #ead6ee, #a0f1ea);
 	border-radius: 40rpx;
-	margin-bottom: 250rpx;
+	margin: 50rpx auto 0 ;
+	width: 280rpx;
+	color: #000;
+}
+.tel-reg{
+	text-align: center;
+	color: #fff;
+	font-size: 34rpx;
+	margin: 60rpx auto 300rpx;
 }
 .login-go{
 	display: flex;
@@ -220,8 +198,8 @@
 	color: purple;
 }
 .login-go image{
-	width:60rpx;
-	height: 60rpx;
+	width:80rpx;
+	height: 80rpx;
 }
 /*第二*/
 .close-center{
@@ -238,8 +216,8 @@
 	padding:10rpx 0;
 	display: flex;
 	align-items: center;
-	border-bottom:2rpx solid #f7f7f7;
-	margin-top: 30rpx;
+	width: 568rpx;
+	margin: 30rpx auto 30rpx;
 }
 .login-user input{
 	background-color: #F2F3F7;
@@ -247,6 +225,10 @@
 	border-radius: 60rpx;
 	height: 120rpx;
 	text-align: center;
+	caret-color: pink!important;
+}
+.login-user input::-webkit-input-placeholder {
+	color: #FFC0CB!important;
 }
 .login-quick{
 	display: flex;

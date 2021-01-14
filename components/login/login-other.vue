@@ -1,19 +1,19 @@
 <template>
 	<view class='login-other'>
 		<view class='other-text'>
-			<view style="font-size: 34rpx;">第三方登录</view>
+			<view style="font-size: 34rpx;color: #fff;">第三方登录</view>
 		</view>
 		<view class='other'>
 			<view class='other-item'>
-				<image src="../../static/img/weixin.jpg" mode="" @tap='loginOther("weixin")'></image> 
+				<image src="../../static/img/wxf.png" mode="" @tap='loginOther("weixin")'></image> 
 				<view>微信登录</view>
 			</view>
 			<view class='other-item'>
-				<image src="../../static/img/weibo.jpg" mode="" @tap='loginOther("sinaweibo")' ></image>
+				<image src="../../static/img/weibo.png" mode="" @tap='loginOther("sinaweibo")' ></image>
 				<view>微博登录</view>
 			</view>
 			<view class='other-item'>
-				<image src="../../static/img/qq.jpg" mode="" @tap='loginOther("qq")'></image>
+				<image src="../../static/img/qq.png" mode="" @tap='loginOther("qq")'></image>
 				<view>QQ登录</view>
 			</view>
 		</view>
@@ -99,6 +99,7 @@
 	justify-content: space-around;
 }
 .other-item{
+	color: #fff;
 	display: flex;
 	flex-direction: column;
 	justify-content:center;

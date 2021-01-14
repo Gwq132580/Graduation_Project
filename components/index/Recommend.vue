@@ -1,12 +1,11 @@
 <template>
-	<view class="recommend bg-color">
+	<view class="recommend bg-color" @tap="goDetail(1)">
 		<view class="recommend-item" v-for="(item,index) in recommendList" :key="index">
 			<image class="item-big" :src="item.bigUrl" mode=""></image>
 			<view class="item-small">
 				<block v-for="(k,i) in item.data" :key="i">
 					<image :src="k.imgUrl" mode=""></image>
 				</block>
-				
 			</view>
 		</view>
 	</view>
@@ -16,6 +15,13 @@
 	export default {
 		props:{
 			recommendList:Array
+		},
+		methods:{
+			goDetail(id){
+				uni.navigateTo({
+					url:'../../pages/detail/detail?id='+id+''
+				})
+			}
 		}
 		
 	}

@@ -18,11 +18,11 @@
 				<view class="">热门搜索</view>
 			</view>
 			<view>
-				<view class="search-name" @tap="goSearch('羽绒服')">
-					羽绒服
+				<view class="search-name" @tap="goSearch('卫衣')">
+					卫衣
 				</view>
-				<view class="search-name " @tap="goSearch('衬衣')">
-					衬衣
+				<view class="search-name " @tap="goSearch('倒钩')">
+					倒钩
 				</view>
 			</view>
 		</view>

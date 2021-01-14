@@ -24,7 +24,7 @@
 				<image class='goods-img' :src='item.imgUrl' mode=""></image>
 				<view class='goods-text'>
 					<view class='goods-name'>{{item.name}}</view>
-					<view class='goods-size f-color'>颜色分类：黑色</view>
+					<!-- <view class='goods-size f-color'>颜色分类：黑色</view> -->
 					<view class='f-active-color' style='font-size:28rpx'>保障: 7天无理由</view>
 				</view>
 				<view>
@@ -98,9 +98,16 @@
 			...mapGetters(['defaultPath','totalCount']),
 			//根据商品列表找到对应e.detail 数据的 id  最终返回商品数据
 			goodsList(){
-				return this.item.map(id=>{
+				// return this.item.map(id=>{
+				// 	return this.list.find(v=>v.id == id);
+				// })
+				let lists=this.item.map(id=>{
 					return this.list.find(v=>v.id == id);
 				})
+				return lists;
+				// return this.item.map(id=>{
+				// 	return this.list.find(v=>v.id == id);
+				// })
 			}
 		},
 		methods: {
@@ -117,9 +124,8 @@
 						icon:'none'
 					})
 				}
-				console.log(sum)
 				uni.navigateTo({
-					url:`../payment/payment?total=${sum}`
+					url:`../payment/payment?total=${sum}&data=${JSON.stringify(this.goodsList)}&customer=${this.path.name}&path=${this.path.province+' '+this.path.city+' '+this.path.district+' '+this.path.address}`
 				})
 			}
 		}
@@ -177,7 +183,7 @@
 	border-radius: 5rpx;
 }
 .goods-name{
-	font-size:34rpx;
+	font-size:30rpx;
 	font-weight: 700;
 }
 .goods-size{

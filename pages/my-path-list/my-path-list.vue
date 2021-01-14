@@ -9,8 +9,10 @@
 						<view style="font-size: 34rpx;">{{item.tel}}</view>
 					</view>
 					<view class='item-main'>
-						<view class='active' v-if="item.isDefault==1">默认</view>
-						<view style="font-size: 34rpx;">{{item.province}} {{item.city}} {{item.district}} {{item.address}}</view>
+						<view style="width: 120rpx;">
+							<view class='active' v-if="item.isDefault==1">默认</view>
+						</view>
+						<view style="font-size: 30rpx;">{{item.province}} {{item.city}} {{item.district}} {{item.address}}</view>
 					</view>
 				</view>
 			</view>
@@ -108,13 +110,13 @@
 	font-weight: 700;
 }
 .active{
-	padding: 6rpx 30rpx;
+	padding: 6rpx 8rpx;
 	background-color: #49BDFB;
 	color:#FFFFFF;
 	border-radius: 26rpx;
 	text-align: center;
-	font-size: 32rpx;
-	margin-right: 40rpx;
+	font-size: 30rpx;
+	margin-right: 10rpx;
 }
 .add-path{
 	/* padding:20rpx; */

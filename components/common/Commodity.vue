@@ -7,8 +7,8 @@
 					{{item.name}}
 				</text>
 				<view>
-					<text class="cprice">{{item.cprice}}</text>
-					<text class="pprice">{{item.pprice}}</text>
+					<text class="cprice">￥{{item.cprice}}</text>
+					<text class="pprice">￥{{item.pprice}}</text>
 				</view>
 				<text class="discount">{{item.discount}}</text>
 			</view>
@@ -71,6 +71,7 @@
 	color: #333;
 	word-break: break-all;
 	padding: 6rpx 20rpx;
+	height: 90rpx;
 }
 .pprice{
 	text-decoration: line-through;

@@ -6,11 +6,19 @@
 </template>
 
 <script>
+	import $http from '@/common/api/request.js'
 	export default {
 		data() {
 			return {
-				
+				data:'',
+				sum:''
 			}
+		},
+		onLoad(e){
+			let {data}=e
+			this.data=data
+			this.getData()
+			this.deleteCart()
 		},
 		methods: {
 			goIndex(){
@@ -18,6 +26,30 @@
 					url:"../index/index"
 				})
 			},
+			getData(){
+				$http.request({
+					url:`/generatorOrder?data=${this.data}`,
+				}).then((res)=>{
+					console.log(res)
+				}).catch(()=>{
+					uni.showToast({
+						title:'没有更多数据了', 
+						icon:'none'
+					})
+				})
+			},
+			deleteCart(){
+				$http.request({
+					url:`/deleteCart?data=${this.data}`,
+				}).then((res)=>{
+					console.log(res)
+				}).catch(()=>{
+					uni.showToast({
+						title:'没有更多数据了', 
+						icon:'none'
+					})
+				})
+			}
 		}
 	}
 </script>

@@ -23,7 +23,7 @@ var User = {
 			let token = jwt.sign(payload,secret);
 			let nickName = param.nickName || "默认昵称";
 			let avatarUrl = param.avatarUrl || "../../static/img/logo.jpg";
-			return 'insert into user (userName,userPwd,phone,imgUrl,nickName,token,provider,openid) values ("","1234567","'+userName+'","'+avatarUrl+'","'+nickName+'","'+token+'","'+param.provider+'","'+param.openid+'")';
+			return 'insert into user (userName,userPwd,phone,imgUrl,nickName,token,provider,openid) values ("","123456","'+userName+'","'+avatarUrl+'","'+nickName+'","'+token+'","'+param.provider+'","'+param.openid+'")';
 		}
 }
 

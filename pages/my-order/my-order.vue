@@ -1,54 +1,27 @@
 <template>
 	<view class='my-order bg-active-color'>
 		<Lines></Lines>
-		<view class='order-header'>
-			<view 
-				class='header-item'
-				v-for='(item,index) in tabList'
-				:key='index'
-				:class=' tabIndex==index?"active":""  '
-				@tap='changeTab(index)'
-			>{{item.name}}</view>
-		</view>
-		
-		<block
-			v-for='(tabItem,tabI) in tabList'
-			:key='tabI'
-		>
-			<view v-show='tabI===tabIndex'>
-				<view v-if='tabItem.list.length > 0' class='order-main' :style="'height:'+clentHeight+'px;'">
-					<!--商品-->
-					<view v-for='(k,i) in tabItem.list' :key='i'>
-						<view class='order-goods'>
-							<view class='goods-status f-active-color'>{{ k.status }}</view>
-							<view class='goods-item' v-for='(item,index) in k.goods_item' :key='index'>
-								<OrderList :item='item' :index='index'></OrderList>
-							</view>
-						</view>
-						<Lines></Lines>
-						<!--总价-->
-						<view class='total-price'>
-							订单金额 : <text class='f-active-color' style="color: #EC602A;display: inline-block;margin-left: 10rpx;">¥{{k.totalPrice}}&emsp;</text><text style="display: inline-block;margin-left: 10rpx;">(不含运费)</text> 
-						</view>
-						<Lines></Lines>
-						<!--支付-->
-						<view class='payment'>
-							<view class='payment-text f-active-color'>支付</view>
-						</view>
+				<template v-if="tabList.length>0">
+				<view class="address">收货地址: {{address}}</view>
+					<view  v-for="(item,index) in tabList " class="order-item" :key="index">
+						<text class="order-id">订单编号: {{item.id}}</text>
+						<text class="order-total">￥{{item.total}}</text>
+						<view class="order-status">状态: {{item.pay?'已付款':'未付款'}}</view>
+						<view class="order-time">下单时间: {{new Date(Number(item.date)).toLocaleString()}}</view>
+						
 					</view>
-				</view>
-				
+				</template>
 				<view v-else class='no-order' :style="'height:'+clentHeight+'px;'">
 					<view style="font-size: 38rpx;">您还没有相关订单~</view>
 					<view class='no-order-home' @tap="goHome">去首页逛逛</view>
 				</view>
-				
 			</view>
 		</block>
 	</view>
 </template>
 
 <script>
+	import $http from '@/common/api/request.js'
 	import Lines from '@/components/common/Lines.vue'
 	import OrderList from '@/components/order/order-list.vue'
 	export default {
@@ -57,49 +30,18 @@
 				//高度
 				clentHeight:0,
 				//当前位置
-				tabIndex:0,
+				// tabIndex:0,
 				//顶部选项卡的数据
 				tabList:[
-					{
-						name:"全部",
-						list:[
-							{
-								status:"待付款",
-								totalPrice:'3999.00',
-								goods_item:[
-									
-									{
-										imgUrl:"../../static/img/Children3.jpg",
-										name:"大姨绒毛大款2020年",
-										attrs:"黑色",
-										pprice:"299.00",
-										num:"5"
-									}
-								]
-							}
-						]
-					},
-					{
-						name:"待付款",
-						list:[]
-					},
-					{
-						name:"待发货",
-						list:[]
-					},
-					{
-						name:"待收货",
-						list:[]
-					},
-					{
-						name:"待评价",
-						list:[]
-					},
-				]
+				],
+				address:''
 			}
 		},
+		onLoad(){
+			this.getData()
+			// this.getAddress()
+		},
 		onReady() {
-			
 			uni.getSystemInfo({
 				success: (res) => {
 					this.clentHeight = res.windowHeight - this.getClientHeight();
@@ -113,9 +55,9 @@
 		},
 		methods: {
 			//顶部切换
-			changeTab(index){
-				this.tabIndex = index;
-			},
+			// changeTab(index){
+			// 	this.tabIndex = index;
+			// },
 			//获取可视区域高度【兼容】
 			getClientHeight(){
 				const res = uni.getSystemInfoSync();
@@ -132,12 +74,69 @@
 				uni.reLaunch({
 					url:'../index/index'
 				})
-			}
+			},
+			getData(){
+				$http.request({
+					url:`/selectOrder?id=${uni.getStorageSync('id')}`,
+				}).then((res)=>{
+					this.tabList=res;
+					this.address=res[0].path;
+				}).catch(()=>{
+					uni.showToast({
+						title:'没有更多数据了', 
+						icon:'none'
+					})
+				})
+			},
+			// getAddress(){
+			// 	$http.request({
+			// 		url:`/selectAddress`,
+			// 		method:'POST',
+			// 		header:{
+			// 			token:true
+			// 		}
+			// 	}).then((res)=>{
+			// 		this.address=res[0]
+			// 	}).catch(()=>{
+			// 		uni.showToast({
+			// 			title:'没有更多数据了', 
+			// 			icon:'none'
+			// 		})
+			// 	})
+			// }
 		}
 	}
 </script>
 
 <style scoped>
+.order-time{
+	font-size: 34rpx;
+}
+.order-status{
+	font-size: 34rpx;
+}
+.order-id{
+	font-size: 34rpx;
+}
+.order-total{
+	font-size: 34rpx;
+	padding-left: 400rpx;
+	color: #EC602A;
+}
+.address{
+	font-size: 34rpx;
+	color: #007AFF;
+}
+.my-order{
+	padding: 0 10rpx 20rpx;
+}
+.order-item{
+	background-color: #ccc;
+	border-radius: 10rpx;
+}
+.order-item+.order-item{
+	margin-top: 40rpx;
+}
 .goods-item{
 	margin-top: -10rpx;
 }

@@ -2,7 +2,7 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
-			"style": {
+			"style": { 
 				"navigationBarBackgroundColor":"#fff",
 				"app-plus":{
 					"scrollIndicator":"none",
@@ -16,6 +16,7 @@
 						]
 					}
 				}
+				
 			}
 		}
 	    ,{
@@ -64,7 +65,7 @@
 					"scrollIndicator":"none",
 					"titleNView":{
 						"searchInput":{
-							"placeholder":"js高级程序设计",
+							"placeholder":"古驰",
 							"disabled":false,
 							"align":"left",
 							"autoFocus":true,
@@ -121,7 +122,7 @@
 				"app-plus":{
 					"scrollIndicator":"none",
 					"titleNView":{
-						"type":"transparent",
+						// "type":"transparent",
 						"buttons":[
 							{
 								"type":"share"
@@ -219,10 +220,28 @@
             	"navigationBarBackgroundColor":"#fff"
             }
         }
+        ,{
+            "path" : "pages/my-home/my-home",
+            "style": {
+            	"navigationBarBackgroundColor":"#fff",
+            	"app-plus":{
+            		"scrollIndicator":"none",
+            		"titleNView":{
+            			"buttons":[
+            				{
+            					"float":"left",
+            					"fontSrc":"./static/iconfont.ttf",
+            					"text":"\ue69d"
+            				}
+            			]
+            		}
+            	}
+            }
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "得物",
+		"navigationBarTitleText": "潮物",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}

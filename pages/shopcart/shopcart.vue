@@ -6,15 +6,32 @@
 			<!--商品内容-->
 					<view class='shop-list'>
 						<view class='shop-item'  v-for='(item,index) in list' :key='index'>
+							
 							<label class="radio" @tap="selectItem(index)">
 								<radio value="" color="#FF3333" :checked="item.checked"/><text></text>
 							</label>
 							<image class='shop-img' :src="item.imgUrl" mode=""></image>
 							<view class='shop-text'>
+								<template v-if="data.length>0">
+										<view class="notice" v-if="data[index].cprice>item.cprice">
+											{{rise}}
+										</view>
+										<view class="notice" v-if="data[index].cprice<item.cprice">
+											{{decline}}
+										</view>
+										<view class="">
+											
+										</view>
+								</template>
 								<view class='shop-name'>{{item.name}}</view>
 								<view class='shop-color f-color'>{{item.color}}</view>
 								<view class='shop-price'>
-									<view style="font-size: 32rpx;color: #EF8D34;">￥{{item.cprice}}</view>
+									<template v-if="data.length>0">
+										<view style="font-size: 32rpx;color: #EF8D34;" >￥{{item.cprice}}</view>
+									</template>
+									<template v-if="data.length>0">
+										<view class="price" v-if="data[index].cprice!=item.cprice" :class="data[index].cprice!=item.cprice?'tdlt':''">￥{{data[index].cprice}}</view>
+									</template>
 									<template v-if="!isNavBar">
 										<view style="font-size: 32rpx;">×{{item.num}}</view>
 									</template>
@@ -39,7 +56,8 @@
 						<template v-else>
 							<view class='foot-total'>
 								<!-- <view class='foot-count' style="background-color: #000;color: #fff;">移入收藏夹</view> -->
-								<view class='foot-num' @tap="delGoodsFn">刪除</view>
+								<!-- <view class='foot-num' @tap="delGoodsFn">刪除</view> -->
+																<view class='foot-num' @tap="delGoods">刪除</view>
 							</view>
 						</template>
 					</view>
@@ -64,7 +82,14 @@
 	export default {
 		data() {
 			return {
-				isNavBar:false,				
+				isNavBar:false,	
+				goodslist:[],
+				currentList:[],
+				rise:'商品降价啦',
+				decline:'商品涨价啦',
+				initData:[],
+				//原价
+				data:[]
 			}
 		},
 		onShow() {
@@ -84,6 +109,47 @@
 					url:`../confirm-order/confirm-order?detail=${JSON.stringify(this.selectedList)}`
 				})
 			},
+			delGoods(){
+				$http.request({
+					url:`/deleteGoods?data=${JSON.stringify(this.goodsList)}`,
+					header:{
+						token:true
+					}
+				}).then((res)=>{
+					uni.showToast({
+						title:'删除成功',
+						icon:'none'
+					})
+				}).catch(()=>{
+					uni.showToast({
+						title:'请求失败',
+						icon:'none'
+					})
+				})
+				this.getData()
+			},
+			comparePrice(res){
+				$http.request({
+					url:`/queryPrice?data=${JSON.stringify(res)}`,
+				}).then((res)=>{
+					// this.currentList=res;
+					// this.initData.forEach((item,index)=>{
+					// 	item.cprice=this.currentList[index].cprice
+					// });
+					// this.initGetData(this.initData)
+					this.data=res[0];
+					this.currentList=res[1];
+					this.initData.forEach((item,index)=>{
+						item.cprice=this.currentList[index].cprice
+					});
+					this.initGetData(this.initData)
+				}).catch(()=>{
+					uni.showToast({
+						title:'请求失败',
+						icon:'none'
+					})
+				})
+			},
 			getData(){
 					$http.request({
 						url:"/selectCart",
@@ -92,7 +158,10 @@
 							token:true
 						}
 					}).then((res)=>{
-						this.initGetData(res);
+						this.initData=res;
+						this.data=res;
+						this.initGetData(res)
+						this.comparePrice(res)
 					}).catch(()=>{
 						uni.showToast({
 							title:'请求失败',
@@ -113,7 +182,6 @@
 						num:value
 					}
 				}).then((res)=>{
-					console.log(res);
 					this.list[index].num = value;
 				}).catch(()=>{
 					uni.showToast({
@@ -128,7 +196,13 @@
 				list:state=>state.cart.list,
 				selectedList:state=>state.cart.selectedList
 			}),
-			...mapGetters(['checkedAll','totalCount'])
+			...mapGetters(['checkedAll','totalCount']),
+			goodsList(){
+				let lists=this.selectedList.map(id=>{
+					return this.list.find(v=>v.id == id);
+				})
+				return lists;
+			}
 		},
 		components:{
 			uniNavBar,
@@ -139,6 +213,12 @@
 </script>
 
 <style scoped>
+.tdlt{
+	text-decoration: line-through;
+}
+.price{
+	font-size: 32rpx;
+}
 .shop-list{
 	padding-bottom:100rpx;
 }
@@ -173,12 +253,25 @@
 	border-radius: 10rpx;
 }
 .shop-text{
+	position: relative;
 	flex:1;
 	padding-left:20rpx;
+}
+.notice{
+	position: absolute;
+	top: -15rpx;
+	background-image:-webkit-linear-gradient(right,pink,purple);
+	-webkit-background-clip:text;
+	-webkit-text-fill-color:transparent;
+	border: 2rpx solid red;
+	border-radius: 12rpx;
+	padding: 0 15rpx;
 }
 .shop-name{
 	font-size: 35rpx;
 	font-weight: 700;
+	height: 120rpx ;
+	padding-top: 30rpx;
 }
 .shop-color{
 	font-size:24rpx;

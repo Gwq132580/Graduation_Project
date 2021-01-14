@@ -30,12 +30,12 @@ export default{
 					"selectedIconPath":"/static/tabbar/indexSelected.png",
 					"text": "首页"
 				}, 
-				{
-					"pagePath": "list",
-					"iconPath":"/static/tabbar/list.png",
-					"selectedIconPath":"/static/tabbar/listSelected.png",
-					"text": "分类"
-				},
+				// {
+				// 	"pagePath": "list",
+				// 	"iconPath":"/static/tabbar/list.png",
+				// 	"selectedIconPath":"/static/tabbar/listSelected.png",
+				// 	"text": "分类"
+				// },
 				{
 					"pagePath": "shopcart",
 					"iconPath":"/static/tabbar/shop.png",

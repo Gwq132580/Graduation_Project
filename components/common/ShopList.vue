@@ -32,7 +32,7 @@
 					data:[
 						{name:'价格',status:1,key:'cprice'},
 						{name:'折扣',status:0,key:'discount'},
-						{name:'品牌',static:0}
+						// {name:'品牌',static:0}
 					]
 				},
 				commodityList:[

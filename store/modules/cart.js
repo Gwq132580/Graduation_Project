@@ -1,14 +1,10 @@
 export default{
 	state:{
 		a:111,
-		list:[
-			
-			
-		],
+		list:[],
 		selectedList:[]
 	},
 	getters:{
-		
 		checkedAll(state){
 			return state.list.length===state.selectedList.length;
 		},
@@ -61,6 +57,7 @@ export default{
 			state.list=state.list.filter(v=>{
 				return state.selectedList.indexOf(v.id)===-1;
 			})
+			console.log(JSON.stringify(state.selectedList))
 		},
 		addShopCart(state,goods){
 			state.list.push(goods)
@@ -71,7 +68,6 @@ export default{
 			getters.checkedAll?commit("unCheckAll"):commit("checkAll")
 		},
 		delGoodsFn({commit}){
-			
 			commit('delGoods');
 			commit('unCheckAll')
 			uni.showToast({

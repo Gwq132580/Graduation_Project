@@ -1,6 +1,6 @@
-<template>
+ <template>
 	<view style="padding-bottom: 90rpx;" >
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+		<swiper :indicator-dots="true" :autoplay="true" :interval="4000" :duration="1000">
 			<swiper-item >
 				<view class="swiper-item">
 					<image class="swiper-img" :src="goodsContent.imgUrl" mode=""></image>
@@ -19,20 +19,8 @@
 			</view>
 		</view>
 		<view class="goods-recommend">
-			<view class="">
-				<image src="../../static/img/detail1.jpg" mode=""></image>
-			</view>
-			<view class="">
-				<image src="../../static/img/detail2.jpg" mode=""></image>
-			</view>
-			<view class="">
-				<image src="../../static/img/detail3.jpg" mode=""></image>
-			</view>
-			<view class="">
-				<image src="../../static/img/detail4.jpg" mode=""></image>
-			</view>
-			<view class="">
-				<image src="../../static/img/detail5.jpg" mode=""></image>
+			<view v-for="(item,index) in goodImg" :key="index">
+				<image :src="item.imgUrl" mode="widthFix"></image>
 			</view>
 		</view>
 		<Card cardTitle="看了又看"></Card>
@@ -80,46 +68,14 @@
 			return {
 				num:1,
 				goodsContent:{},
+				goodImg:[],
 				animationData:'',
 				isShow:false,
 				swiperList:[
-					{imgUrl:'../../static/img/details1.jpeg'},
-					{imgUrl:'../../static/img/details2.jpeg'},
-					{imgUrl:'../../static/img/details3.jpeg'},
+					
 				],
 				commodityList:[
-					{
-						id:1,
-						imgUrl:'../../static/img/commodity1.jpg',
-						name:'爆款大衣',
-						cprice:'￥699',
-						pprice:'￥999',
-						discount:'5.2折'
-					},
-					{
-						id:2,
-						imgUrl:'../../static/img/commodity2.jpg',
-						name:'爆款大衣',
-						cprice:'￥699',
-						pprice:'￥999',
-						discount:'5.2折'
-					},
-					{
-						id:3,
-						imgUrl:'../../static/img/commodity3.jpg',
-						name:'爆款大衣',
-						cprice:'￥699',
-						pprice:'￥999',
-						discount:'5.2折'
-					},
-					{
-						id:4,
-						imgUrl:'../../static/img/commodity4.jpg',
-						name:'爆款大衣',
-						cprice:'￥699',
-						pprice:'￥999',
-						discount:'5.2折'
-					},
+					
 				]
 			}
 		},
@@ -152,7 +108,10 @@
 			}
 		},
 		onLoad(e){
-			this.getData(e.id)
+			let id=e.id
+			this.getData(id)
+			this.getGoodsImg(id)
+			this.getGoodsLook()
 		},
 		methods: {
 			...mapMutations(['addShopCart']),
@@ -182,31 +141,6 @@
 					})
 				})
 			},
-			// addCart(){
-				// $http.request({
-				// 	url:'/ceshi',
-				// 	method:"POST",
-				// 	header:{
-				// 		token:true
-				// 	}
-				// }).then((res)=>{
-				// 	console.log(res)
-				// }).catch(()=>{
-				// 	uni.showToast({
-				// 		title:'请求失败', 
-				// 		icon:'none'
-				// 	})
-				// })
-			// 	let goods=this.goodsContent;
-			// 	this.goodsContent['checked']=false;
-			// 	this.goodsContent['num']=this.num;
-			// 	this.addShopCart(goods);
-			// 	this.hidePop();
-			// 	uni.showToast({
-			// 		title:'添加成功',
-			// 		icon:'none'
-			// 	})
-			// },
 			goShopCart(){
 				uni.navigateTo({
 					url:'../shopcart/shopcart'
@@ -223,6 +157,33 @@
 					}
 				}).then((res)=>{
 					this.goodsContent=res[0]
+				}).catch(()=>{
+					uni.showToast({
+						title:'没有更多数据了', 
+						icon:'none'
+					})
+				})
+			},
+			getGoodsImg(id){
+					$http.request({
+						url:'/goodsImg/id',
+						data:{
+							id:id
+						}
+					}).then((res)=>{
+						this.goodImg=res;
+					}).catch(()=>{
+						uni.showToast({
+							title:'没有更多数据了', 
+							icon:'none'
+						})
+					})
+			},
+			getGoodsLook(){
+				$http.request({
+					url:'/goods/look',
+				}).then((res)=>{
+					this.commodityList=res;
 				}).catch(()=>{
 					uni.showToast({
 						title:'没有更多数据了', 
